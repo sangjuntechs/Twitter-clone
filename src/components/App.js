@@ -1,10 +1,12 @@
-import React from 'react';
-import AppRouter from './Router';
+import React, { useState } from 'react';
+import AppRouter from 'components/Router';
+import { authService } from 'fbInstance';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
   return (
     <div>
-      <AppRouter />
+      <AppRouter isLoggedIn={isLoggedIn}/>
     </div>
   );
 }
