@@ -7,7 +7,6 @@ const Tweet = ({ tweetObj, isOwner }) => {
 
   const onDeleteClick = () => {
     const ok = window.confirm("정말 이 트윗을 삭제하시겠습니까?");
-    console.log(ok);
     if (ok) {
       dbService.doc(`tweets/${tweetObj.id}`).delete();
     } else {
@@ -32,7 +31,6 @@ const Tweet = ({ tweetObj, isOwner }) => {
     } = event;
     setNewTweet(value);
   };
-
   return (
     <div>
       {editing ? (
@@ -51,13 +49,14 @@ const Tweet = ({ tweetObj, isOwner }) => {
             {tweetObj.creatorName ? tweetObj.creatorName : "anonymous"}(
             {tweetObj.creatorEmail})
           </p>
+          <p>{tweetObj.createDay} {tweetObj.createTime}</p>
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete</button>
-              <button onClick={onToggleEdit}>Edit</button>{" "}
+              <button onClick={onToggleEdit}>Edit</button>
             </>
           )}
-          <br />{" "}
+          <br />
         </>
       )}
     </div>

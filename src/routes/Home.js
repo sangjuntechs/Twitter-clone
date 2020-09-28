@@ -17,6 +17,7 @@ const Home = ({ userObjs }) => {
   }, []);
 
   const onSubmit = (event) => {
+    const toDate = new Date()
     event.preventDefault();
     dbService.collection("tweets").add({
       text: tweet,
@@ -24,6 +25,8 @@ const Home = ({ userObjs }) => {
       creatorId: userObjs.uid,
       creatorName: userObjs.displayName,
       creatorEmail: userObjs.email,
+      createDay: toDate.toLocaleDateString(),
+      createTime: toDate.toLocaleTimeString()
     });
     setTweet("");
   };
