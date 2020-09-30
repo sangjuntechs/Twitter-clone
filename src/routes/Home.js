@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { dbService } from "fbInstance";
+import { dbService, storageService } from "fbInstance";
 import Tweet from "components/Tweet";
+import {v4 as uuidv4 } from 'uuid'
 
 const Home = ({ userObjs }) => {
   const [tweet, setTweet] = useState("");
@@ -17,10 +18,17 @@ const Home = ({ userObjs }) => {
     });
   }, []);
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     const toDate = new Date();
+    let fileAttachUrl = '';
     event.preventDefault();
-    dbService.collection("tweets").add({
+    if (fileAttach != '') {
+      const fileAttachRef = storageService.ref().child(`${userObjs.uid}/${uuidv4()}`);
+    const response = await fileAttachRef.putString(fileAttach, "data_url")
+    fileAttachUrl = await response.ref.getDownloadURL();
+
+    }
+    const tweetObj = {
       text: tweet,
       createAt: Date.now(),
       creatorId: userObjs.uid,
@@ -28,8 +36,11 @@ const Home = ({ userObjs }) => {
       creatorEmail: userObjs.email,
       createDay: toDate.toLocaleDateString(),
       createTime: toDate.toLocaleTimeString(),
-    });
+      fileAttachUrl: fileAttachUrl
+    }
+    dbService.collection("tweets").add(tweetObj);
     setTweet("");
+    setFileAttach("");
   };
 
   const onChange = (event) => {
