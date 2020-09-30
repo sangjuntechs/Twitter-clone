@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { dbService } from "fbInstance";
+import { dbService, storageService } from "fbInstance";
 
 const Tweet = ({ tweetObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
@@ -9,6 +9,7 @@ const Tweet = ({ tweetObj, isOwner }) => {
     const ok = window.confirm("정말 이 트윗을 삭제하시겠습니까?");
     if (ok) {
       dbService.doc(`tweets/${tweetObj.id}`).delete();
+      storageService.refFromURL(tweetObj.fileAttachUrl).delete();
     } else {
       return;
     }

@@ -22,7 +22,7 @@ const Home = ({ userObjs }) => {
     const toDate = new Date();
     let fileAttachUrl = '';
     event.preventDefault();
-    if (fileAttach != '') {
+    if (fileAttach !== '') {
       const fileAttachRef = storageService.ref().child(`${userObjs.uid}/${uuidv4()}`);
     const response = await fileAttachRef.putString(fileAttach, "data_url")
     fileAttachUrl = await response.ref.getDownloadURL();
