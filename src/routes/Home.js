@@ -6,7 +6,7 @@ import {v4 as uuidv4 } from 'uuid'
 const Home = ({ userObjs }) => {
   const [tweet, setTweet] = useState("");
   const [tweets, setTweets] = useState([]);
-  const [fileAttach, setFileAttach] = useState();
+  const [fileAttach, setFileAttach] = useState("");
 
   useEffect(() => {
     dbService.collection("tweets").onSnapshot((snapshot) => {
@@ -82,7 +82,7 @@ const Home = ({ userObjs }) => {
         <input type="submit" value="Tweet" />
         {fileAttach && (
           <div>
-            <img src={fileAttach} width="50px" height="50px" />
+            <img src={fileAttach} width="50px" height="50px" alt='already_image'/>
             <button onClick={onClearPhotoClick}>Clear</button>
           </div>
         )}

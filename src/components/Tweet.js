@@ -46,7 +46,7 @@ const Tweet = ({ tweetObj, isOwner }) => {
       ) : (
         <>
           <h3>{tweetObj.text}</h3>
-          {tweetObj.fileAttachUrl && <img src={tweetObj.fileAttachUrl} width='100px' height='100px'/>}
+          {tweetObj.fileAttachUrl && <img src={tweetObj.fileAttachUrl} width='100px' height='100px' alt='tweet_image'/>}
           <p>
             {tweetObj.creatorName ? tweetObj.creatorName : "anonymous"}(
             {tweetObj.creatorEmail})

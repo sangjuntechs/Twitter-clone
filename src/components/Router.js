@@ -8,7 +8,7 @@ import Profile from "routes/Profile";
 const AppRouter = ({isLoggedIn, userObjs}) => {
   return (
     <Router>
-      {isLoggedIn && <Navigation />}
+      {isLoggedIn && <Navigation userObjs={userObjs}/>}
       <Switch>
         {isLoggedIn ? (
           <>
@@ -16,7 +16,7 @@ const AppRouter = ({isLoggedIn, userObjs}) => {
               <Home userObjs={userObjs}/>
             </Route>
             <Route exact path='/profile'>
-              <Profile />
+              <Profile userObjs={userObjs}/>
             </Route>
           </>
         ) : (
