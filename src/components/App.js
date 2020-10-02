@@ -12,6 +12,7 @@ function App() {
       if (user) {
         setIsLoggedIn(true);
         setUserObjs(user);
+       
       } else {
         setIsLoggedIn(false)
       }

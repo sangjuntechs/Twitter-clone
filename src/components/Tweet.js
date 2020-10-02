@@ -33,7 +33,7 @@ const Tweet = ({ tweetObj, isOwner }) => {
     setNewTweet(value);
   };
   return (
-    <div>
+    <div className="tweets">
       {editing ? (
         <>
           <form onSubmit={onSubmit}>
@@ -47,18 +47,17 @@ const Tweet = ({ tweetObj, isOwner }) => {
         <>
           <h3>{tweetObj.text}</h3>
           {tweetObj.fileAttachUrl && <img src={tweetObj.fileAttachUrl} width='100px' height='100px' alt='tweet_image'/>}
-          <p>
+          <p className='tweetSmallFont'>
             {tweetObj.creatorName ? tweetObj.creatorName : "anonymous"}(
             {tweetObj.creatorEmail})
           </p>
-          <p>{tweetObj.createDay} {tweetObj.createTime}</p>
+          <p className='tweetSmallFont'>{tweetObj.createDay} {tweetObj.createTime}</p>
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete</button>
               <button onClick={onToggleEdit}>Edit</button>
             </>
           )}
-          <br />
         </>
       )}
     </div>

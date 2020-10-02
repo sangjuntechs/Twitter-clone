@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { dbService, storageService } from "fbInstance";
 import Tweet from "components/Tweet";
-import {v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from "uuid";
+import "../css/home.css";
+import { IoLogoTwitter } from "react-icons/io";
 
 const Home = ({ userObjs }) => {
   const [tweet, setTweet] = useState("");
@@ -20,13 +22,14 @@ const Home = ({ userObjs }) => {
 
   const onSubmit = async (event) => {
     const toDate = new Date();
-    let fileAttachUrl = '';
+    let fileAttachUrl = "";
     event.preventDefault();
-    if (fileAttach !== '') {
-      const fileAttachRef = storageService.ref().child(`${userObjs.uid}/${uuidv4()}`);
-    const response = await fileAttachRef.putString(fileAttach, "data_url")
-    fileAttachUrl = await response.ref.getDownloadURL();
-
+    if (fileAttach !== "") {
+      const fileAttachRef = storageService
+        .ref()
+        .child(`${userObjs.uid}/${uuidv4()}`);
+      const response = await fileAttachRef.putString(fileAttach, "data_url");
+      fileAttachUrl = await response.ref.getDownloadURL();
     }
     const tweetObj = {
       text: tweet,
@@ -36,8 +39,8 @@ const Home = ({ userObjs }) => {
       creatorEmail: userObjs.email,
       createDay: toDate.toLocaleDateString(),
       createTime: toDate.toLocaleTimeString(),
-      fileAttachUrl: fileAttachUrl
-    }
+      fileAttachUrl: fileAttachUrl,
+    };
     dbService.collection("tweets").add(tweetObj);
     setTweet("");
     setFileAttach("");
@@ -67,27 +70,37 @@ const Home = ({ userObjs }) => {
 
   const onClearPhotoClick = () => {
     setFileAttach(null);
-  }
+  };
   return (
-    <div>
-      <form onSubmit={onSubmit}>
+    <div className="home_rapping">
+      <div className="home_logo">
+        <IoLogoTwitter />
+        <div className='home_logoFont'>SangjunTech Twitter.</div>
+      </div>
+      <form className="home_form" onSubmit={onSubmit}>
         <input
+          className="home_tweet_box"
           value={tweet}
           onChange={onChange}
           type="text"
           placeholder="당신의 생각을 적으세요."
           maxLength={120}
         />
-        <input type="file" accept="image/*" onChange={onFileChange} />
+        <input className='home_file'type="file" accept="image/*" onChange={onFileChange} />
         <input type="submit" value="Tweet" />
         {fileAttach && (
           <div>
-            <img src={fileAttach} width="50px" height="50px" alt='already_image'/>
+            <img
+              src={fileAttach}
+              width="50px"
+              height="50px"
+              alt="already_image"
+            />
             <button onClick={onClearPhotoClick}>Clear</button>
           </div>
         )}
       </form>
-      <div>
+      <div className="tweet_box">
         {tweets.map((tweet) => (
           <Tweet
             key={tweet.id}
@@ -96,7 +109,9 @@ const Home = ({ userObjs }) => {
           />
         ))}
       </div>
+      <footer>sangjuntech copyright 2020.</footer>
     </div>
+    
   );
 };
 

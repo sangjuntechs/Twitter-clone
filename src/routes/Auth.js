@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { authService, firebaseInstance } from "fbInstance";
+import { IoLogoTwitter } from 'react-icons/io'
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -48,9 +49,12 @@ const Auth = () => {
     await authService.signInWithPopup(provider);
   };
   return (
-    <div>
+    <div className="login_wrap">
+      <IoLogoTwitter className="logo" size='50' color='dodgerblue'/>
+      SangjunTech Twitter
       <form onSubmit={onSubmit}>
         <input
+          className="auth_input"
           name="email"
           type="email"
           placeholder="Email"
@@ -59,6 +63,7 @@ const Auth = () => {
           onChange={onChange}
         />
         <input
+          className="auth_input"
           name="password"
           type="password"
           placeholder="password"
@@ -66,17 +71,17 @@ const Auth = () => {
           value={password}
           onChange={onChange}
         />
-        <input type="submit" value={newAccout ? "Create Account" : "LogIn"} />
+        <input className="change_loginType"type="submit" value={newAccout ? "Create Account" : "LogIn"} />
         {error}
       </form>
-      <span onClick={toggleAccount}>
+      <span className="type_login "onClick={toggleAccount}>
         {newAccout ? "Sign In" : "Create Account"}
       </span>
-      <div>
-        <button name="github" onClick={onSocialClick}>
+      <div className="buttonForm">
+        <button className = "auth_button" name="github" onClick={onSocialClick}>
           Github로 로그인
         </button>
-        <button name="google" onClick={onSocialClick}>
+        <button className = "auth_button" name="google" onClick={onSocialClick}>
           Google로 로그인
         </button>
       </div>
