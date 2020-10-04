@@ -87,13 +87,12 @@ const Home = ({ userObjs }) => {
           maxLength={120}
         />
         <input className='home_file'type="file" accept="image/*" onChange={onFileChange} />
-        <input type="submit" value="Tweet" />
+        <input className='home_tweet_btn'type="submit" value="Tweet" />
         {fileAttach && (
           <div>
             <img
+              id='home_already_image'
               src={fileAttach}
-              width="50px"
-              height="50px"
               alt="already_image"
             />
             <button onClick={onClearPhotoClick}>Clear</button>

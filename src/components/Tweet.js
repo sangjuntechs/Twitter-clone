@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { dbService, storageService } from "fbInstance";
+import {IoMdBuild , IoIosTrash} from 'react-icons/io'
 
 const Tweet = ({ tweetObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
@@ -38,15 +39,15 @@ const Tweet = ({ tweetObj, isOwner }) => {
         <>
           <form onSubmit={onSubmit}>
             {" "}
-            <input type="text" value={newTweet} required onChange={onChange} />
-            <input type="submit" value="변경" />
+            <input className='edt_text' type="text" value={newTweet} required onChange={onChange} />
+            <input className='edt_btn' type="submit" value="변경" />
           </form>
-          <button onClick={onToggleEdit}>취소</button>
+          <button className='edt_btn'onClick={onToggleEdit}>취소</button>
         </>
       ) : (
         <>
           <h3>{tweetObj.text}</h3>
-          {tweetObj.fileAttachUrl && <img src={tweetObj.fileAttachUrl} width='100px' height='100px' alt='tweet_image'/>}
+          {tweetObj.fileAttachUrl && <img id='tweet_image'src={tweetObj.fileAttachUrl} alt='tweet_image'/>}
           <p className='tweetSmallFont'>
             {tweetObj.creatorName ? tweetObj.creatorName : "anonymous"}(
             {tweetObj.creatorEmail})
@@ -54,8 +55,8 @@ const Tweet = ({ tweetObj, isOwner }) => {
           <p className='tweetSmallFont'>{tweetObj.createDay} {tweetObj.createTime}</p>
           {isOwner && (
             <>
-              <button onClick={onDeleteClick}>Delete</button>
-              <button onClick={onToggleEdit}>Edit</button>
+              <button className='tweet_btn' onClick={onDeleteClick}><IoIosTrash /></button>
+              <button className='tweet_btn' onClick={onToggleEdit}><IoMdBuild/></button>
             </>
           )}
         </>
