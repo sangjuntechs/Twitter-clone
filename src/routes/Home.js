@@ -95,7 +95,7 @@ const Home = ({ userObjs }) => {
               src={fileAttach}
               alt="already_image"
             />
-            <button onClick={onClearPhotoClick}>Clear</button>
+            <button className ='image_clear_btn 'onClick={onClearPhotoClick}>Clear</button>
           </div>
         )}
       </form>
